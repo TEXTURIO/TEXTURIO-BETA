@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEXTURIO Beta</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #222; color: white; }
+        button { padding: 10px 20px; font-size: 16px; margin: 5px; cursor: pointer; }
+        #log { margin-top: 20px; max-height: 200px; overflow-y: auto; background: #333; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>TEXTURIO Beta</h1>
+    <p>Mine minerals, build, and travel!</p>
+    
+    <button onclick="mine()">⛏️ Mine Minerals</button>
+    <button onclick="buildStructure()">🏗️ Build Structure (5s)</button>
+    <button onclick="travel()">🚂 Travel by Train (Real-time)</button>
+
+    <p>Minerals: <span id="minerals">0</span></p>
+    <p>Structures Built: <span id="structures">0</span></p>
+
+    <div id="log"></div>
+
+    <script>
+        let minerals = 0;
+        let structures = 0;
+
+        function logMessage(msg) {
+            let log = document.getElementById("log");
+            log.innerHTML += `<p>${msg}</p>`;
+            log.scrollTop = log.scrollHeight;
+        }
+
+        function mine() {
+            minerals += Math.floor(Math.random() * 5) + 1;
+            document.getElementById("minerals").innerText = minerals;
+            logMessage("⛏️ Mined minerals!");
+        }
+
+        function buildStructure() {
+            if (minerals >= 10) {
+                minerals -= 10;
+                document.getElementById("minerals").innerText = minerals;
+                logMessage("🏗️ Building structure... (5s)");
+
+                setTimeout(() => {
+                    structures++;
+                    document.getElementById("structures").innerText = structures;
+                    logMessage("✅ Structure built!");
+                }, 5000);
+            } else {
+                logMessage("❌ Not enough minerals!");
+            }
+        }
+
+        function travel() {
+            logMessage("🚂 Train departing... ETA: 10s");
+            setTimeout(() => {
+                logMessage("✅ Arrived at destination!");
+            }, 10000);
+        }
+    </script>
+</body>
+</html>
